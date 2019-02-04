@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 // Components
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { Graficas1Component } from './graficas1/graficas1.component';
+import { Graphics1Component } from './graphics1/graphics1.component';
 import { ProgressComponent } from './progress/progress.component';
 
 
@@ -15,12 +15,12 @@ import { ProgressComponent } from './progress/progress.component';
   declarations: [
     PagesComponent,
     DashboardComponent,
-    Graficas1Component,
+    Graphics1Component,
     ProgressComponent
   ],
   exports: [
     DashboardComponent,
-    Graficas1Component,
+    Graphics1Component,
     ProgressComponent
   ],
   imports: [
