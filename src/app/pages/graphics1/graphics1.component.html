@@ -1,3 +1,35 @@
-<p>
-    graphics1 works!
-</p>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-doughnut-chart [title]="graphics.graphic1.title" [chartLabels]="graphics.graphic1.labels" [chartData]="graphics.graphic1.data"></app-doughnut-chart>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-doughnut-chart [title]="graphics.graphic2.title" [chartLabels]="graphics.graphic2.labels" [chartData]="graphics.graphic2.data"></app-doughnut-chart>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-doughnut-chart [title]="graphics.graphic3.title" [chartLabels]="graphics.graphic3.labels" [chartData]="graphics.graphic3.data"></app-doughnut-chart>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-doughnut-chart [title]="graphics.graphic4.title" [chartLabels]="graphics.graphic4.labels" [chartData]="graphics.graphic4.data"></app-doughnut-chart>
+            </div>
+        </div>
+    </div>
+</div>
