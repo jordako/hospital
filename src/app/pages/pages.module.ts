@@ -13,6 +13,7 @@ import { Graphics1Component } from './graphics1/graphics1.component';
 import { ProgressComponent } from './progress/progress.component';
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-chart.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-ch
     Graphics1Component,
     ProgressComponent,
     IncreaserComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    AccountSettingsComponent
   ],
   exports: [
     DashboardComponent,
