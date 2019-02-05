@@ -1,29 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html'
 })
-export class AccountSettingsComponent {
+export class AccountSettingsComponent implements OnInit {
 
   constructor(
     private settingsService: SettingsService
   ) {}
 
-  onChangeTheme(theme: string, link: HTMLAnchorElement) {
-    this.setCheck(link);
-
-    this.settingsService.setTheme(theme);
+  ngOnInit() {
+    this.setCheck();
   }
 
-  setCheck(link: HTMLAnchorElement) {
+  onChangeTheme(theme: string) {
+    this.settingsService.setTheme(theme);
+    this.setCheck();
+  }
+
+  setCheck() {
     const themes: any = document.getElementsByClassName('selector');
+    const theme = this.settingsService.settings.theme;
+
     for (const ref of themes) {
       ref.classList.remove('working');
+      if (ref.getAttribute('data-theme') === theme) {
+        ref.classList.add('working');
+      }
     }
-
-    link.classList.add('working');
   }
 
 }
