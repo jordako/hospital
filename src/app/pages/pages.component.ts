@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+declare function init_pluggins(): void;
+
 @Component({
   selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styles: []
+  templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
-
   ngOnInit() {
+    init_pluggins();
   }
 
 }
