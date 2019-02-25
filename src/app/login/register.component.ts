@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormGroup,
   FormControl,
@@ -20,7 +21,7 @@ declare function init_pluggins(): void;
 export class RegisterComponent implements OnInit {
   form: FormGroup;
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, public router: Router) {}
 
   ngOnInit() {
     init_pluggins();
@@ -66,6 +67,8 @@ export class RegisterComponent implements OnInit {
       this.form.value.password
     );
 
-    this.userService.addUser(user).subscribe(resp => console.log(resp));
+    this.userService
+      .addUser(user)
+      .subscribe(() => this.router.navigate(['/login']));
   }
 }
