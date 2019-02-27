@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 // Modules
 import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { ChartsModule } from 'ng2-charts';
+import { PipesModule } from '../pipes/pipes.module';
 
 // Components
 import { PagesComponent } from './pages.component';
@@ -16,7 +17,6 @@ import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-ch
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-
 
 @NgModule({
   declarations: [
@@ -30,16 +30,13 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     PromisesComponent,
     RxjsComponent
   ],
-  exports: [
-    DashboardComponent,
-    Graphics1Component,
-    ProgressComponent
-  ],
+  exports: [DashboardComponent, Graphics1Component, ProgressComponent],
   imports: [
     SharedModule,
     PagesRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    PipesModule
   ]
 })
-export class PagesModule { }
+export class PagesModule {}
