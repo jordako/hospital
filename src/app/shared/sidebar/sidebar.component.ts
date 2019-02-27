@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { SidebarService } from '../../services';
+import { SidebarService, UserService } from '../../services';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent {
-
-  constructor( public sidebar: SidebarService ) { }
-
+  constructor(
+    public sidebar: SidebarService,
+    public userService: UserService
+  ) {}
 }
