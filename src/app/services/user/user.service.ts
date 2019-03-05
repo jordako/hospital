@@ -29,6 +29,18 @@ export class UserService {
     );
   }
 
+  updateUser(user: User): Observable<User> {
+    const url = URL_SERVICES + '/user/' + user._id + '?token=' + this.token;
+    return this.http.put(url, user).pipe(
+      map((resp: any) => {
+        const updatedUser = <User>resp.user;
+        this.saveStorage(updatedUser._id, this.token, updatedUser);
+        swal('Usuario actualizado', user.email, 'success');
+        return updatedUser;
+      })
+    );
+  }
+
   login(user: User, remember: boolean = false): Observable<void> {
     if (remember) {
       localStorage.setItem('email', user.email);

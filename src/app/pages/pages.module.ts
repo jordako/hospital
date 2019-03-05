@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 // Modules
@@ -17,6 +17,7 @@ import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-ch
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,15 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     DoughnutChartComponent,
     AccountSettingsComponent,
     PromisesComponent,
-    RxjsComponent
+    RxjsComponent,
+    ProfileComponent
   ],
   exports: [DashboardComponent, Graphics1Component, ProgressComponent],
   imports: [
     SharedModule,
     PagesRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     ChartsModule,
     PipesModule
   ]
