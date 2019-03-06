@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateImage() {
-    this.userService.updateImage(this.uploadImage).subscribe(resp => console.log(resp));
+    this.userService.updateImage(this.uploadImage).subscribe();
   }
 
 }
