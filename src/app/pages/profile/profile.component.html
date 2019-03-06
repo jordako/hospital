@@ -30,11 +30,12 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Fotografía</h4>
-        <img src="">
+        <img *ngIf="!imageTemp" [src]="user.img | image" class="img-thumbnail mb-3">
+        <img *ngIf="imageTemp" [src]="imageTemp" class="img-thumbnail mb-3">
         <div class="form-group">
-          <input type="file" id="photo" class="form-control">
+          <input type="file" id="photo" class="form-control" (change)="onChangeFile($event.target.files[0])">
         </div>
-        <button type="button" class="btn btn-success waves-effect waves-light m-r-10">
+        <button type="button" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="!uploadImage" (click)="updateImage()">
           Actualizar            
         </button>
       </div>

@@ -7,6 +7,7 @@ import { URL_SERVICES } from 'src/app/config/config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import swal from 'sweetalert';
+import { UploadFileService } from '../upload-file/upload-file.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   user: User;
   token: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private uploadFileService: UploadFileService) {
     this.loadStorage();
   }
 
@@ -23,7 +24,7 @@ export class UserService {
     const url = URL_SERVICES + '/user';
     return this.http.post(url, user).pipe(
       map((resp: any) => {
-        swal('Usuario creado', user.email, 'success');
+        swal('Usuario creado', user.name, 'success');
         return <User>resp.user;
       })
     );
@@ -35,7 +36,21 @@ export class UserService {
       map((resp: any) => {
         const updatedUser = <User>resp.user;
         this.saveStorage(updatedUser._id, this.token, updatedUser);
-        swal('Usuario actualizado', user.email, 'success');
+
+        swal('Usuario actualizado', updatedUser.name, 'success');
+        return updatedUser;
+      })
+    );
+  }
+
+  updateImage(file: File): Observable<User> {
+    return this.uploadFileService.uploadFile(file, 'users', this.user._id).pipe(
+      map((resp: any) => {
+        const updatedUser = <User>resp.user;
+        this.user.img = updatedUser.img;
+        this.saveStorage(updatedUser._id, this.token, updatedUser);
+
+        swal('Fotografía de usuario actualizada', updatedUser.name, 'success');
         return updatedUser;
       })
     );
