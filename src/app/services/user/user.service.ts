@@ -47,7 +47,10 @@ export class UserService {
     return this.http.put(url, user).pipe(
       map((resp: any) => {
         const updatedUser = <User>resp.user;
-        this.saveStorage(updatedUser._id, this.token, updatedUser);
+
+        if (user._id === this.user._id) {
+          this.saveStorage(updatedUser._id, this.token, updatedUser);
+        }
 
         swal('Usuario actualizado', updatedUser.name, 'success');
         return updatedUser;

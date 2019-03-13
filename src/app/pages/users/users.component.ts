@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models';
 import { UserService } from 'src/app/services';
+import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
 
 declare var swal: any;
 
@@ -16,10 +17,19 @@ export class UsersComponent implements OnInit {
   loading = true;
 
 
-  constructor(public userService: UserService) { }
+  constructor(
+    public userService: UserService,
+    public modalUploadService: ModalUploadService
+  ) { }
 
   ngOnInit() {
     this.getUsers();
+
+    this.modalUploadService.notification
+      .subscribe(resp => {
+        const updatedUser = this.users.find(user => user._id === resp.user._id);
+        updatedUser.img = resp.user.img;
+      });
   }
 
   getUsers() {
@@ -61,6 +71,11 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  onSave(user: User) {
+    this.userService.updateUser(user)
+      .subscribe();
+  }
+
   onDelete(user: User) {
     if (user._id === this.userService.user._id) {
       swal('No puede borar usuario', 'No se puede borrar a si mismo', 'error');
@@ -82,5 +97,9 @@ export class UsersComponent implements OnInit {
           });
       }
     });
+  }
+
+  onClickImage(userId: string) {
+    this.modalUploadService.showModal('users', userId);
   }
 }

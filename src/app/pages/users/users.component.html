@@ -38,7 +38,7 @@
           <tbody>
             <tr *ngFor="let user of users">
               <td class="w-70">
-                <img [src]="user.img | image" class="img-circle w-50">
+                <img [src]="user.img | image" class="img-circle w-50" (click)="onClickImage(user._id)">
               </td>
               <td>
                 {{user.email}}
@@ -47,14 +47,17 @@
                 {{user.name}}
               </td>
               <td>
-                {{user.role}}
+                <select name="role" class="form-control" [(ngModel)]="user.role">
+                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                  <option value="USER_ROLE">USER_ROLE</option>
+                </select>
               </td>
               <td>
                 <label *ngIf="user.google" class="label label-danger">Goolge</label>
                 <label *ngIf="!user.google" class="label label-info">Normal</label>
               </td>
               <td>
-                <button type="button" class="btn btn-primary mr-1">
+                <button type="button" class="btn btn-primary mr-1" (click)="onSave(user)">
                   <i class="fa fa-save"></i>
                 </button>
                 <button type="button" class="btn btn-danger" (click)="onDelete(user)">
