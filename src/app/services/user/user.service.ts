@@ -20,6 +20,18 @@ export class UserService {
     this.loadStorage();
   }
 
+  getUsers(from: number = 0): Observable<{total: number, users: User[]}> {
+    const url = URL_SERVICES + '/user?from=' + from;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        return {
+          total: <number>resp.total,
+          users: <User[]>resp.users
+        };
+      })
+    );
+  }
+
   addUser(user: User): Observable<User> {
     const url = URL_SERVICES + '/user';
     return this.http.post(url, user).pipe(
@@ -39,6 +51,17 @@ export class UserService {
 
         swal('Usuario actualizado', updatedUser.name, 'success');
         return updatedUser;
+      })
+    );
+  }
+
+  deleteUser(id: string): Observable<User> {
+    const url = URL_SERVICES + '/user/' + id + '?token=' + this.token;
+    return this.http.delete(url).pipe(
+      map((resp: any) => {
+        const deletedUser = <User>resp.user;
+        swal('Usuario borrado', deletedUser.name, 'success');
+        return deletedUser;
       })
     );
   }
@@ -112,5 +135,14 @@ export class UserService {
 
   isLogged(): boolean {
     return this.token ? true : false;
+  }
+
+  searchUsers(term: string): Observable<User[]> {
+    // TODO paginar los resultados de la búsqueda
+    const url = URL_SERVICES + '/search/collection/users/' + term;
+
+    return this.http.get(url).pipe(
+      map((resp: any) => <User[]>resp.users)
+    );
   }
 }

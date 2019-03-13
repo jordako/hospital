@@ -2,13 +2,13 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input #input type="text" class="form-control" placeholder="Buscar usuario...">
+        <input #input type="text" class="form-control" placeholder="Buscar usuario..." (keyup)="onSearch(input.value)">
       </div>
     </div>
   </div>
 </div>
 
-<div class="row animated fadeIn">
+<div *ngIf="loading" class="row animated fadeIn">
   <div class="col-12">
     <div class="alert alert-warning text-center">
       <strong>Cargando</strong>
@@ -18,11 +18,11 @@
   </div>
 </div>
 
-<div class="row animated fadeIn">
+<div *ngIf="!loading" class="row animated fadeIn">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">Usuarios registrados (<small>123</small>)</h3>
+        <h3 class="card-title">Usuarios registrados (<small>{{totalRecords}}</small>)</h3>
 
         <table class="table table-hover">
           <thead>
@@ -36,17 +36,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr *ngFor="let user of users">
+              <td class="w-70">
+                <img [src]="user.img | image" class="img-circle w-50">
+              </td>
+              <td>
+                {{user.email}}
+              </td>
+              <td>
+                {{user.name}}
+              </td>
+              <td>
+                {{user.role}}
+              </td>
+              <td>
+                <label *ngIf="user.google" class="label label-danger">Goolge</label>
+                <label *ngIf="!user.google" class="label label-info">Normal</label>
+              </td>
               <td>
                 <button type="button" class="btn btn-primary mr-1">
                   <i class="fa fa-save"></i>
                 </button>
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn btn-danger" (click)="onDelete(user)">
                   <i class="fa fa-trash-o"></i>
                 </button>
               </td>
@@ -54,10 +65,10 @@
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-secondary mr-1">
+        <button (click)="onPaginate(-5)" type="button" class="btn btn-secondary mr-1">
           Anterior
         </button>
-        <button type="button" class="btn btn-secondary">
+        <button (click)="onPaginate(5)" type="button" class="btn btn-secondary">
           Siguiente
         </button>
       </div>

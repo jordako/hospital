@@ -1,3 +1,19 @@
 .themecolors li a {
   cursor: pointer;
 }
+
+.table.table-hover tbody tr {
+  cursor: pointer;
+}
+
+.w-50 {
+  width: 50px;
+}
+
+.w-70 {
+  width: 70px;
+}
+
+.w-150 {
+  width: 150px;
+}
