@@ -29,6 +29,11 @@ export class UsersComponent implements OnInit {
       .subscribe(resp => {
         const updatedUser = this.users.find(user => user._id === resp.user._id);
         updatedUser.img = resp.user.img;
+
+        if (updatedUser._id === this.userService.user._id) {
+          this.userService.user.img = updatedUser.img;
+          this.userService.saveStorage(updatedUser._id, this.userService.token, updatedUser);
+        }
       });
   }
 
@@ -99,7 +104,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onClickImage(userId: string) {
-    this.modalUploadService.showModal('users', userId);
+  onClickImage(user: User) {
+    this.modalUploadService.showModal('users', user._id, user.img);
   }
 }

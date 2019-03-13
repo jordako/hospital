@@ -5,6 +5,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class ModalUploadService {
 
+  previewImage = 'no-image';
   type: string;
   id: string;
 
@@ -18,11 +19,13 @@ export class ModalUploadService {
     this.hide = 'd-none';
     this.type = null;
     this.id = null;
+    this.previewImage = 'no-image';
   }
 
-  showModal(type: string, id: string) {
+  showModal(type: string, id: string, previewImage: string = 'no-image') {
     this.hide = '';
     this.type = type;
     this.id = id;
+    this.previewImage = previewImage;
   }
 }

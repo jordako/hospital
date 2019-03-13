@@ -38,7 +38,7 @@
           <tbody>
             <tr *ngFor="let user of users">
               <td class="w-70">
-                <img [src]="user.img | image" class="img-circle w-50" (click)="onClickImage(user._id)">
+                <img [src]="user.img | image" class="img-circle w-50" (click)="onClickImage(user)">
               </td>
               <td>
                 {{user.email}}
