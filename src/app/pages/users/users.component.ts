@@ -16,7 +16,6 @@ export class UsersComponent implements OnInit {
   totalRecords = 0;
   loading = true;
 
-
   constructor(
     public userService: UserService,
     public modalUploadService: ModalUploadService
