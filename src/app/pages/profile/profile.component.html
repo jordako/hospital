@@ -1,5 +1,5 @@
 <div class="row animated fadeIn">
-  <div class="col-lg-7">
+  <div class="col-md-7">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Datos básicos</h4>
@@ -10,6 +10,9 @@
               <div class="input-group-addon"><i class="ti-user"></i></div>
               <input type="text" class="form-control" id="username" placeholder="Nombre" formControlName="name">
             </div>
+            <p *ngIf="form.controls.name.errors?.required && !form.controls.name.pristine" class="text-danger">
+              <small>Campo obligatorio</small>
+            </p>
           </div>
           <div class="form-group">
             <label for="email">Correo</label>
@@ -17,8 +20,14 @@
               <div class="input-group-addon"><i class="ti-email"></i></div>
               <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
             </div>
+            <p *ngIf="form.controls.email.errors?.required && !form.controls.email.pristine" class="text-danger">
+              <small>Campo obligatorio</small>
+            </p>
+            <p *ngIf="form.controls.email.errors?.email && !form.controls.email.pristine" class="text-danger">
+              <small>Formato correo incorrecto</small>
+            </p>
           </div>
-          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="form.invalid">
             Guardar            
           </button>
         </form>
@@ -26,7 +35,7 @@
     </div>
   </div>
 
-  <div class="col-lg-5">
+  <div class="col-md-5">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Imagen</h4>

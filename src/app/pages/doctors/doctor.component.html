@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card card-body">
+      <h3 class="box-title">Médico: TODO nombre médico</h3>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <form [formGroup]="form" (ngSubmit)="onSave()">
+            <div class="form-group">
+              <label for="name">Nombre del médico</label>
+              <input type="text" class="form-control" id="name" placeholder="Nombre del médico" formControlName="name">
+              <p *ngIf="form.controls.name.errors?.required && !form.controls.name.pristine" class="text-danger">
+                <small>Campo obligatorio</small>
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="hospital">Hospital</label>
+              <select id="hospital" class="form-control" formControlName="hospital">
+                <option value="">Sleccione hospital</option>
+                <option *ngFor="let hospital of hospitals" [value]="hospital._id">{{hospital.name}}</option>
+              </select>
+              <p *ngIf="form.controls.hospital.errors?.required && !form.controls.hospital.pristine" class="text-danger">
+                <small>Campo obligatorio</small>
+              </p>
+            </div>
+
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="form.invalid">Guardar</button>
+            <button type="button" class="btn btn-inverse waves-effect waves-light" routerLink="/doctors">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card card-body">
+      <h4 class="box-title">Hospital</h4>
+      <img src="" alt="">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card card-body">
+      <h4 class="box-title">Imagen</h4>
+      <img src="" alt="">
+    </div>
+  </div>
+</div>

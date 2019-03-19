@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
     this.getUsers();
 
     this.modalUploadService.notification
-      .subscribe(resp => {
+      .subscribe((resp: any) => {
         const updatedUser = this.users.find(user => user._id === resp.user._id);
         updatedUser.img = resp.user.img;
 
@@ -92,7 +92,7 @@ export class UsersComponent implements OnInit {
       icon: 'warning',
       buttons: true,
       dangerMode: true
-    }).then(ok => {
+    }).then((ok: boolean) => {
       if (ok) {
         this.userService.deleteUser(user._id)
           .subscribe(() => {

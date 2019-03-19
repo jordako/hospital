@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input #input type="text" class="form-control" placeholder="Buscar usuario..." (keyup)="onSearch(input.value)">
+        <input #input type="text" class="form-control" placeholder="Buscar médico..." (keyup)="onSearch(input.value)">
       </div>
     </div>
   </div>
@@ -23,45 +23,39 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">Usuarios registrados (<small>{{totalRecords}}</small>)</h3>
+        <div class="text-right">
+          <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" [routerLink]="['/doctor', 'new']">
+            <i class="fa fa-plus mr-2"></i>Crear médico
+          </button>
+        </div>
+
+        <h3 class="card-title">Médicos registrados (<small>{{totalRecords}}</small>)</h3>
 
         <table class="table table-hover">
           <thead>
             <tr>
               <th>Imagen</th>
-              <th>Correo</th>
               <th>Nombre</th>
-              <th>Role</th>
-              <th>Auth</th>
+              <th>Hospital</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let doctor of doctors">
               <td class="w-70">
-                <img [src]="user.img | image" class="img-circle w-50" (click)="onClickImage(user)">
+                <img [src]="doctor.img | image:'doctors'" class="img-circle w-50" (click)="onClickImage(doctor)">
               </td>
               <td>
-                {{user.email}}
+                {{doctor.name}}
               </td>
               <td>
-                {{user.name}}
-              </td>
-              <td>
-                <select name="role" class="form-control" [(ngModel)]="user.role">
-                  <option value="ADMIN_ROLE">ADMIN_ROLE</option>
-                  <option value="USER_ROLE">USER_ROLE</option>
-                </select>
-              </td>
-              <td>
-                <label *ngIf="user.google" class="label label-danger">Goolge</label>
-                <label *ngIf="!user.google" class="label label-info">Normal</label>
+                {{doctor.hospital?.name}}
               </td>
               <td class="text-right">
-                <button type="button" class="btn btn-primary mr-1" (click)="onSave(user)">
-                  <i class="fa fa-save"></i>
+                <button type="button" class="btn btn-primary mr-1" [routerLink]="['/doctor', doctor._id]">
+                  <i class="fa fa-edit"></i>
                 </button>
-                <button type="button" class="btn btn-danger" (click)="onDelete(user)">
+                <button type="button" class="btn btn-danger" (click)="onDelete(doctor)">
                   <i class="fa fa-trash-o"></i>
                 </button>
               </td>

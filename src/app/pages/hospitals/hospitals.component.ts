@@ -25,7 +25,7 @@ export class HospitalsComponent implements OnInit {
     this.getHospitals();
 
     this.modalUploadService.notification
-      .subscribe(resp => {
+      .subscribe((resp: any) => {
         const updatedHospital = this.hospitals.find(hospital => hospital._id === resp.hospital._id);
         updatedHospital.img = resp.hospital.img;
       });
@@ -71,11 +71,15 @@ export class HospitalsComponent implements OnInit {
   }
 
   onAdd() {
-    swal('Nombre del hospital', {
+    swal({
+      title: 'Crear hospital',
+      text: 'Introduzca el nombre del hospital',
       content: 'input',
-    })
-    .then(name => {
-      if (name.length > 0) {
+      icon: 'info',
+      buttons: true,
+      dangerMode: false
+    }).then((name: string) => {
+      if (name && name.length > 0) {
         this.hospitalService.addHospital(name)
           .subscribe(() => {
             this.getHospitals();
@@ -96,7 +100,7 @@ export class HospitalsComponent implements OnInit {
       icon: 'warning',
       buttons: true,
       dangerMode: true
-    }).then(ok => {
+    }).then((ok: boolean) => {
       if (ok) {
         this.hospitalService.deleteHospital(hospital._id)
           .subscribe(() => {

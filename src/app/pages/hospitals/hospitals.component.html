@@ -1,3 +1,4 @@
+<!-- TODO crear un componente buscador -->
 <div class="row animated fadeIn">
   <div class="col-12">
     <div class="card">
@@ -23,7 +24,9 @@
     <div class="card">
       <div class="card-body">
         <div class="text-right">
-          <button type="button" class="btn btn-primary btn-rounded" (click)="onAdd()"><i class="fa fa-plus mr-2"></i>Crear hospital</button>
+          <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" (click)="onAdd()">
+            <i class="fa fa-plus mr-2"></i>Crear hospital
+          </button>
         </div>
 
         <h3 class="card-title">Hospitales registrados (<small>{{totalRecords}}</small>)</h3>
@@ -42,9 +45,9 @@
                 <img [src]="hospital.img | image:'hospitals'" class="img-circle w-50" (click)="onClickImage(hospital)">
               </td>
               <td>
-                <input type="text" name="name" class="form-control" [(ngModel)]="hospital.name">
+                <input type="text" name="name" class="form-control" placeholder="Nombre del hospital" [(ngModel)]="hospital.name">
               </td>
-              <td>
+              <td class="text-right">
                 <button type="button" class="btn btn-primary mr-1" (click)="onSave(hospital)">
                   <i class="fa fa-save"></i>
                 </button>
