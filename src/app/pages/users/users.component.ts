@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/models';
 import { UserService } from 'src/app/services';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
+import { Subscription } from 'rxjs';
 
 declare var swal: any;
 
@@ -9,12 +10,13 @@ declare var swal: any;
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   users: User[] = [];
   from = 0;
   totalRecords = 0;
   loading = true;
+  uploadSubscription: Subscription;
 
   constructor(
     public userService: UserService,
@@ -23,8 +25,17 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.updateImage();
+  }
 
-    this.modalUploadService.notification
+  ngOnDestroy() {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+    }
+  }
+
+  updateImage() {
+    this.uploadSubscription = this.modalUploadService.notification
       .subscribe((resp: any) => {
         const updatedUser = this.users.find(user => user._id === resp.user._id);
         updatedUser.img = resp.user.img;

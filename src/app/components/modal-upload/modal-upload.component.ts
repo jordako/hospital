@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewChildren, ElementRef } from '@angular/core';
 import { UploadFileService } from 'src/app/services';
 import { ModalUploadService } from './modal-upload.service';
 
@@ -7,6 +7,8 @@ import { ModalUploadService } from './modal-upload.service';
   templateUrl: './modal-upload.component.html'
 })
 export class ModalUploadComponent {
+
+  @ViewChild('file') inputFile: ElementRef;
 
   uploadImage: File;
   imageTemp: string;
@@ -19,6 +21,7 @@ export class ModalUploadComponent {
   closeModal() {
     this.uploadImage = null;
     this.imageTemp = null;
+    this.inputFile.nativeElement.value = '';
 
     this.modalUploadService.hideModal();
   }

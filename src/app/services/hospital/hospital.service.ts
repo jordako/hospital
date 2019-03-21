@@ -14,8 +14,8 @@ export class HospitalService {
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
-  getHospitals(from: number = 0): Observable<{total: number, hospitals: Hospital[]}> {
-    const url = URL_SERVICES + '/hospital?from=' + from;
+  getHospitals(from: number = 0, limit: number = 5): Observable<{total: number, hospitals: Hospital[]}> {
+    const url = URL_SERVICES + '/hospital?from=' + from + '&limit=' + limit;
     return this.http.get(url).pipe(
       map((resp: any) => {
         return {

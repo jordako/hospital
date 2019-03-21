@@ -13,7 +13,7 @@
           <img *ngIf="!imageTemp" [src]="modalUploadService.previewImage | image:modalUploadService.type" class="img-thumbnail mb-3 w-150">
           <img *ngIf="imageTemp" [src]="imageTemp" class="img-thumbnail mb-3 w-150">
           <div class="form-group">
-            <input type="file" id="photo" class="form-control" (change)="onChangeFile($event.target.files[0])">
+            <input #file type="file" id="photo" class="form-control" (change)="onChangeFile($event.target.files[0])">
           </div>
 
         </div>

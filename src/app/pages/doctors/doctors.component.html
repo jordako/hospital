@@ -43,7 +43,7 @@
           <tbody>
             <tr *ngFor="let doctor of doctors">
               <td class="w-70">
-                <img [src]="doctor.img | image:'doctors'" class="img-circle w-50" (click)="onClickImage(doctor)">
+                <img [src]="doctor.img | image:'doctors'" class="img-circle w-50 pointer" (click)="onClickImage(doctor)">
               </td>
               <td>
                 {{doctor.name}}

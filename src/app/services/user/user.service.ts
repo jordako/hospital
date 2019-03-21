@@ -20,8 +20,8 @@ export class UserService {
     this.loadStorage();
   }
 
-  getUsers(from: number = 0): Observable<{total: number, users: User[]}> {
-    const url = URL_SERVICES + '/user?from=' + from;
+  getUsers(from: number = 0, limit: number = 5): Observable<{total: number, users: User[]}> {
+    const url = URL_SERVICES + '/user?from=' + from + '&limit=' + limit;
     return this.http.get(url).pipe(
       map((resp: any) => {
         return {
@@ -76,7 +76,7 @@ export class UserService {
         this.user.img = updatedUser.img;
         this.saveStorage(updatedUser._id, this.token, updatedUser);
 
-        swal('Fotografía de usuario actualizada', updatedUser.name, 'success');
+        swal('Imagen de usuario actualizada', updatedUser.name, 'success');
         return updatedUser;
       })
     );

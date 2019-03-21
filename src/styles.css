@@ -1,8 +1,4 @@
-.themecolors li a {
-  cursor: pointer;
-}
-
-.table.table-hover tbody tr {
+.pointer {
   cursor: pointer;
 }
 

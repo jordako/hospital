@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Hospital } from 'src/app/models/hospital.model';
 import { HospitalService } from 'src/app/services';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
+import { Subscription } from 'rxjs';
 
 declare var swal: any;
 
@@ -9,12 +10,13 @@ declare var swal: any;
   selector: 'app-hospitals',
   templateUrl: './hospitals.component.html'
 })
-export class HospitalsComponent implements OnInit {
+export class HospitalsComponent implements OnInit, OnDestroy {
 
   hospitals: Hospital[] = [];
   from = 0;
   totalRecords = 0;
   loading = true;
+  uploadSubscription: Subscription;
 
   constructor(
     public hospitalService: HospitalService,
@@ -23,8 +25,17 @@ export class HospitalsComponent implements OnInit {
 
   ngOnInit() {
     this.getHospitals();
+    this.updateImage();
+  }
 
-    this.modalUploadService.notification
+  ngOnDestroy() {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+    }
+  }
+
+  updateImage() {
+    this.uploadSubscription = this.modalUploadService.notification
       .subscribe((resp: any) => {
         const updatedHospital = this.hospitals.find(hospital => hospital._id === resp.hospital._id);
         updatedHospital.img = resp.hospital.img;

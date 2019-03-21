@@ -14,8 +14,8 @@ export class DoctorService {
 
   constructor(public http: HttpClient, private userService: UserService) { }
 
-  getDoctors(from: number = 0): Observable<{total: number, doctors: Doctor[]}> {
-    const url = URL_SERVICES + '/doctor?from=' + from;
+  getDoctors(from: number = 0, limit: number = 5): Observable<{total: number, doctors: Doctor[]}> {
+    const url = URL_SERVICES + '/doctor?from=' + from + '&limit=' + limit;
     return this.http.get(url).pipe(
       map((resp: any) => {
         return {
@@ -30,7 +30,7 @@ export class DoctorService {
     const url = URL_SERVICES + '/doctor/' + id;
 
     return this.http.get(url).pipe(
-      map((resp: any) => <Doctor>resp.Doctor)
+      map((resp: any) => <Doctor>resp.doctor)
     );
   }
 
@@ -46,8 +46,11 @@ export class DoctorService {
   }
 
   addDoctor(doctor: Doctor): Observable<Doctor> {
-    const url = URL_SERVICES + '/doctor?token=' + this.userService.token;
-    return this.http.post(url, doctor).pipe(
+    const url = URL_SERVICES + '/doctor?token=' + this.userService.token;    
+    return this.http.post(url, {
+      name: doctor.name,
+      hospitalId: doctor.hospital._id
+    }).pipe(
       map((resp: any) => {
         const createdDoctor = <Doctor>resp.doctor;   
         swal('Médico creado', createdDoctor.name, 'success');
@@ -58,13 +61,24 @@ export class DoctorService {
 
   updateDoctor(doctor: Doctor): Observable<Doctor> {
     const url = URL_SERVICES + '/doctor/' + doctor._id + '?token=' + this.userService.token;
-    return this.http.put(url, doctor).pipe(
+    return this.http.put(url, {
+      name: doctor.name,
+      hospitalId: doctor.hospital._id
+    }).pipe(
       map((resp: any) => {
         const updatedDoctor = <Doctor>resp.doctor;        
         swal('Médico actualizado', updatedDoctor.name, 'success');
         return updatedDoctor;
       })
     );
+  }
+
+  saveDoctor(doctor: Doctor): Observable<Doctor> {
+    if (doctor._id) {
+      return this.updateDoctor(doctor);
+    } else {
+      return this.addDoctor(doctor);
+    }
   }
 
   searchDoctors(term: string): Observable<Doctor[]> {
