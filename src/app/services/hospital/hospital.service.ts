@@ -67,8 +67,8 @@ export class HospitalService {
     );
   }
 
+  // TODO pasar este método al servicio de búsqueda
   searchHospitals(term: string): Observable<Hospital[]> {
-    // TODO paginar los resultados de la búsqueda
     const url = URL_SERVICES + '/search/collection/hospitals/' + term;
 
     return this.http.get(url).pipe(

@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
         if (updatedUser._id === this.userService.user._id) {
           this.userService.user.img = updatedUser.img;
-          this.userService.saveStorage(updatedUser._id, this.userService.token, updatedUser);
+          this.userService.saveStorage(updatedUser._id, this.userService.token, updatedUser, this.userService.menu);
         }
       });
   }

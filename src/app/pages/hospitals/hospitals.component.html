@@ -9,6 +9,7 @@
   </div>
 </div>
 
+<!-- TODO crear un componente de cargando -->
 <div *ngIf="loading" class="row animated fadeIn">
   <div class="col-12">
     <div class="alert alert-warning text-center">
@@ -59,12 +60,14 @@
           </tbody>
         </table>
 
-        <button (click)="onPaginate(-5)" type="button" class="btn btn-secondary mr-1">
-          Anterior
-        </button>
-        <button (click)="onPaginate(5)" type="button" class="btn btn-secondary">
-          Siguiente
-        </button>
+        <div *ngIf="!input.value">
+          <button (click)="onPaginate(-5)" type="button" class="btn btn-secondary mr-1">
+            Anterior
+          </button>
+          <button (click)="onPaginate(5)" type="button" class="btn btn-secondary">
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>

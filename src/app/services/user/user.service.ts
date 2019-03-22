@@ -15,6 +15,7 @@ import { UploadFileService } from '../upload-file/upload-file.service';
 export class UserService {
   user: User;
   token: string;
+  menu: any[] = [];
 
   constructor(private http: HttpClient, private router: Router, private uploadFileService: UploadFileService) {
     this.loadStorage();
@@ -49,7 +50,7 @@ export class UserService {
         const updatedUser = <User>resp.user;
 
         if (user._id === this.user._id) {
-          this.saveStorage(updatedUser._id, this.token, updatedUser);
+          this.saveStorage(updatedUser._id, this.token, updatedUser, this.menu);
         }
 
         swal('Usuario actualizado', updatedUser.name, 'success');
@@ -74,7 +75,7 @@ export class UserService {
       map((resp: any) => {
         const updatedUser = <User>resp.user;
         this.user.img = updatedUser.img;
-        this.saveStorage(updatedUser._id, this.token, updatedUser);
+        this.saveStorage(updatedUser._id, this.token, updatedUser, this.menu);
 
         swal('Imagen de usuario actualizada', updatedUser.name, 'success');
         return updatedUser;
@@ -93,7 +94,7 @@ export class UserService {
     return this.http
       .post(url, user)
       .pipe(
-        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user))
+        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user, resp.menu))
       );
   }
 
@@ -102,28 +103,32 @@ export class UserService {
     return this.http
       .post(url, { token })
       .pipe(
-        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user))
+        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user, resp.menu))
       );
   }
 
   logout() {
     this.user = null;
     this.token = '';
+    this.menu = [];
 
     localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('menu');
 
     this.router.navigate(['/login']);
   }
 
-  saveStorage(id: string, token: string, user: User) {
+  saveStorage(id: string, token: string, user: User, menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     this.user = user;
     this.token = token;
+    this.menu = menu;
   }
 
   loadStorage() {
@@ -134,14 +139,18 @@ export class UserService {
     this.user = localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user'))
       : null;
+
+    this.menu = localStorage.getItem('menu')
+      ? JSON.parse(localStorage.getItem('menu'))
+      : [];
   }
 
   isLogged(): boolean {
     return this.token ? true : false;
   }
 
+  // TODO pasar este método al servicio de búsqueda
   searchUsers(term: string): Observable<User[]> {
-    // TODO paginar los resultados de la búsqueda
     const url = URL_SERVICES + '/search/collection/users/' + term;
 
     return this.http.get(url).pipe(

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService, UserService } from '../../services';
+import { UserService } from '../../services';
 import { User } from 'src/app/models';
 
 @Component({
@@ -7,14 +7,16 @@ import { User } from 'src/app/models';
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
+
   user: User;
+  menu: any[] = [];
 
   constructor(
-    public sidebarService: SidebarService,
     public userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.user = this.userService.user;
+    this.menu = this.userService.menu;
   }
 }

@@ -81,8 +81,8 @@ export class DoctorService {
     }
   }
 
+  // TODO pasar este método al servicio de búsqueda
   searchDoctors(term: string): Observable<Doctor[]> {
-    // TODO paginar los resultados de la búsqueda
     const url = URL_SERVICES + '/search/collection/doctors/' + term;
 
     return this.http.get(url).pipe(

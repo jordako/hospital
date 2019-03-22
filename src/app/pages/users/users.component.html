@@ -69,12 +69,14 @@
           </tbody>
         </table>
 
-        <button (click)="onPaginate(-5)" type="button" class="btn btn-secondary mr-1">
-          Anterior
-        </button>
-        <button (click)="onPaginate(5)" type="button" class="btn btn-secondary">
-          Siguiente
-        </button>
+        <div *ngIf="!input.value">
+          <button (click)="onPaginate(-5)" type="button" class="btn btn-secondary mr-1">
+            Anterior
+          </button>
+          <button (click)="onPaginate(5)" type="button" class="btn btn-secondary">
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>
