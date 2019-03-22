@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 import { User } from 'src/app/models';
 import { URL_SERVICES } from 'src/app/config/config';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { UploadFileService } from '../upload-file/upload-file.service';
 
@@ -39,6 +39,10 @@ export class UserService {
       map((resp: any) => {
         swal('Usuario creado', user.name, 'success');
         return <User>resp.user;
+      }),
+      catchError(err => {
+        swal(err.error.message, err.error.errors.message, 'error');
+        return throwError(err);
       })
     );
   }
@@ -94,7 +98,11 @@ export class UserService {
     return this.http
       .post(url, user)
       .pipe(
-        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user, resp.menu))
+        map((resp: any) => this.saveStorage(resp.id, resp.token, resp.user, resp.menu)),
+        catchError(err => {
+          swal(err.error.message, err.error.errors.message, 'error');
+          return throwError(err);
+        })
       );
   }
 
