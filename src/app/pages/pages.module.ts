@@ -20,7 +20,6 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
-import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctors/doctor.component';
@@ -39,13 +38,16 @@ import { SearchComponent } from './search/search.component';
     RxjsComponent,
     ProfileComponent,
     UsersComponent,
-    ModalUploadComponent,
     HospitalsComponent,
     DoctorsComponent,
     DoctorComponent,
     SearchComponent
   ],
-  exports: [DashboardComponent, Graphics1Component, ProgressComponent],
+  exports: [
+    DashboardComponent,
+    Graphics1Component,
+    ProgressComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
