@@ -6,6 +6,7 @@ import { URL_SERVICES } from 'src/app/config/config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: 'root'
