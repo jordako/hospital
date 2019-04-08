@@ -17,8 +17,30 @@ export class UserService {
   token: string;
   menu: any[] = [];
 
-  constructor(private http: HttpClient, private router: Router, private uploadFileService: UploadFileService) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router, 
+    private uploadFileService: UploadFileService
+  ) {
     this.loadStorage();
+  }
+
+  renewToken(): Observable<boolean> {
+    const url = URL_SERVICES + '/login/renew-token?token=' + this.token;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        this.token = resp.token;
+        localStorage.setItem('token', this.token);
+
+        return true;
+      }),
+      catchError(err => {
+        this.router.navigate(['/login']);
+        swal(err.error.message, err.error.errors.message, 'error');
+
+        return throwError(err);
+      })
+    );
   }
 
   getUsers(from: number = 0, limit: number = 5): Observable<{total: number, users: User[]}> {
