@@ -3,8 +3,7 @@ import { User } from 'src/app/models';
 import { UserService } from 'src/app/services';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
 import { Subscription } from 'rxjs';
-
-declare var swal: any;
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-users',
@@ -101,7 +100,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       title: '¿Está seguro?',
       text: 'Está a punto de borrar a ' + user.name,
       icon: 'warning',
-      buttons: true,
+      buttons: [true, true],
       dangerMode: true
     }).then((ok: boolean) => {
       if (ok) {

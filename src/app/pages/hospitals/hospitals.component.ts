@@ -3,8 +3,7 @@ import { Hospital } from 'src/app/models/hospital.model';
 import { HospitalService } from 'src/app/services';
 import { ModalUploadService } from 'src/app/components/modal-upload/modal-upload.service';
 import { Subscription } from 'rxjs';
-
-declare var swal: any;
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-hospitals',
@@ -85,9 +84,9 @@ export class HospitalsComponent implements OnInit, OnDestroy {
     swal({
       title: 'Crear hospital',
       text: 'Introduzca el nombre del hospital',
-      content: 'input',
+      content: { element: 'input'},
       icon: 'info',
-      buttons: true,
+      buttons: [true, true],
       dangerMode: false
     }).then((name: string) => {
       if (name && name.length > 0) {
@@ -109,7 +108,7 @@ export class HospitalsComponent implements OnInit, OnDestroy {
       title: '¿Está seguro?',
       text: 'Está a punto de borrar a ' + hospital.name,
       icon: 'warning',
-      buttons: true,
+      buttons: [true, true],
       dangerMode: true
     }).then((ok: boolean) => {
       if (ok) {
